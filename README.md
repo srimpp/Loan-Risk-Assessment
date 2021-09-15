@@ -2,7 +2,7 @@
 Loan Risk Assessment  Project / 고객 행동에 따른 채무불이행 예측
 
 Original data from:
-https://www.kaggle.com/subhamjain/loan-prediction-based-on-customer-behavior?select=Training+Data.csv : Loan Prediction Based on Customer Behavior
+https://www.kaggle.com/subhamjain/loan-prediction-based-on-customer-behavior?select=Training+Data.csv : Loan Prediction Based on Customer Behavior.
 The data belongs to the original owner.
 
 We, Team S2gmo2d, created 10 different machine learning classification algorithms with optimal parameters to select best performing models and predict loan risk of potential customers. All collaborators added to this repository have participated in this project.
