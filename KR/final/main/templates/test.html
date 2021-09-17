@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>분석모델 Decision Tree</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<!-- 메인 페이지 css설정 -->
+<link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+<link href="/static/css/mainstyle.css" rel="stylesheet" type="text/css" />
+<link href="/static/css/graph.css?ver=113" rel="stylesheet"
+type="text/css" />
+
+<!-- 예측 css -->
+<link href="/static/css/test.css" rel="stylesheet" type="text/css" />
+
+
+<!-- 
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+	 -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<script type="text/javascript" src="/static/js/Graph.js?ver=123"></script>
+
+
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/test/main.css?ver=123">
+<link rel="stylesheet" href="/static/test/skin.css?ver=123">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="/static/test/index.js"></script>
+<script type="text/javascript">
+	function predict(){
+		let send_data = {}
+		let Age = document.getElementById("Age").value
+		let Income = document.getElementById("Income").value
+		let Profession = document.getElementById("Profession").value
+		let experience = document.getElementById("experience").value
+		let married = document.getElementById("married").value
+		let house_ownership = document.getElementById("house_ownership").value
+		let Car_Ownership = document.getElementById("Car_Ownership").value
+		let CURRENT_JOB_YRS = document.getElementById("CURRENT_JOB_YRS").value
+		let CURRENT_HOUSE_YRS = document.getElementById("CURRENT_HOUSE_YRS").value
+		
+		
+		if(Age === "" || Income === "" || experience === "" ||CURRENT_JOB_YRS === "" || CURRENT_HOUSE_YRS=== "" ){
+			alert("모든 정보를 입력해주세요.");
+			return;
+		}
+		else if(Age<20){
+			alert("미성년자는 대출 상품을 이용할 수 없습니다.");
+			return;
+				}
+		else if(Age>100){
+			alert("연령은 100세까지 입력할 수 있습니다.");
+			return;
+				}	
+		else if(Profession === ""){
+			alert("직업군을 선택해주세요.");
+			return;
+				}
+		else if(married === ""){
+			alert("결혼 여부를 선택해주세요.");
+			return;
+				}
+		else if(house_ownership === ""){
+			alert("주택의 소유 형태를 선택해주세요.");
+			return;
+				}
+		else if(Car_Ownership === ""){
+			alert("차 소유 여부를 선택해주세요.");
+			return;
+				}		
+		
+		send_data['Age'] = Age
+		send_data['Income'] = Income
+		send_data['Profession'] = Profession
+		send_data['experience'] = experience
+		send_data['married'] = married
+		send_data['house_ownership'] = house_ownership
+		send_data['Car_Ownership'] = Car_Ownership
+		send_data['CURRENT_JOB_YRS'] = CURRENT_JOB_YRS
+		send_data['CURRENT_HOUSE_YRS'] = CURRENT_HOUSE_YRS
+		send_data['csrfmiddlewaretoken']='{{ csrf_token }}'
+		$(".predictRisk").empty();  
+		$.ajax({
+			url:"predict",   
+			method:"post", 
+			data:send_data,
+			dataType:"json",
+			success:function(data){
+				result_rf=data['result_rf']
+				result_xg=data['result_xg']
+				result_tf=data['result_tf']
+				coef_tf=data['coef_tf']
+				$(".predictRisk").append(`연령 : ${Age}, 소득 : ${Income}, 직업군 : ${Profession}, 사업주 경력 : ${experience}, 결혼 여부 : ${married}, 
+						거주 형태 : ${house_ownership}, 차 소유 : ${Car_Ownership}, 근속 연수 : ${CURRENT_JOB_YRS}, 주택 거주 연수 : ${CURRENT_HOUSE_YRS}에 대한 <br> 평가 결과는 다음과 같습니다.<br>`); 
+				$(".predictRisk").append(`<b>Random Forest</b>모델을 사용했을 때 평가 결과는 <b>${result_rf}</b>.<br>`); 
+				$(".predictRisk").append(`<b>LGBM</b>모델을 사용했을 때 평가 결과는 <b>${result_xg}</b>.<br> `); 
+				$(".predictRisk").append(`<b>Tensorflow</b>모델을 사용했을 때 평가 결과는 대출위험 확률<b>${coef_tf}%</b>로 <b>${result_tf}</b>. `); 
+
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	}
+
+	function inforclear(){
+		$(".predictRisk").empty();
+		$('#Age').val('');
+		$('#Income').val('');
+		$('#Profession').val('');;
+		$('#experience').val('');
+		$('#married').val('');
+		$('#house_ownership').val('');
+		$('#Car_Ownership').val('');
+		$('#CURRENT_JOB_YRS').val('');
+		$('#CURRENT_HOUSE_YRS').val('');	
+	}
+</script>
+
+<style>
+body.cyan input:focus {    
+    border-bottom: 2px solid #1abac8 !important;}    
+body.cyan select:focus {    
+    border-bottom: 2px solid #1abac8 !important;}
+    
+body.blue input:focus {   
+    border-bottom: 2px solid #159eee !important;}    
+body.blue select:focus {   
+    border-bottom: 2px solid #159eee !important;}
+
+body.orange input:focus {   
+    border-bottom: 2px solid #ff8a00 !important;}
+body.orange select:focus {   
+    border-bottom: 2px solid #ff8a00 !important;}
+    
+body.red input:focus {   
+    border-bottom: 2px solid #e54e53 !important;}
+body.red select:focus {   
+    border-bottom: 2px solid #e54e53 !important;}
+    
+body.green input:focus {
+    border-bottom: 2px solid #1abc9c !important;}
+body.green select:focus {
+    border-bottom: 2px solid #1abc9c !important;}   
+    
+body.lightgreen input:focus {
+    border-bottom: 2px solid #b4de50 !important;}
+body.lightgreen select:focus {
+    border-bottom: 2px solid #b4de50 !important;}
+
+</style>
+</head>
+
+<body id="wrapper">
+
+    <section id="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-7 top-header-links">
+                    <ul class="contact_links">
+                        <li><i class="fa fa-phone"></i><a href="#">+82 010 0000 0000</a></li>
+                        <li><i class="fa fa-envelope"></i><a href="#">Admin@LoanRisk.kr</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5 social">
+                    <ul class="social_links">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <header>
+        <nav class="navbar navbar-inverse" style="height:170px; margin-top:10px;">
+            <div class="container">
+                <div class="row" style="z-index:1;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+                        <a class="navbar-brand" href="/">
+                            <h1>LRA</h1><span>Loan Risk Assessment</span></a>
+                            <!-- Loan Risk Assessment -->
+                    </div>
+					<div id="navbar" class="collapse navbar-collapse navbar-right">
+						<!-- 수정안 -->
+						<div style='display: inline-block; justify-content:center;'>
+							<a href='about' class="link7" style='display: inline-block;'>팀
+								<span class="sub">소개합니다</span>
+							</a> 
+							<a href='data' class="link7" style='display: inline-block;'>데이터
+								<span class="sub">데이터 설명</span>
+							</a>
+							&nbsp;&nbsp;
+							<div class='dropdown'>
+								<a href='model' class="link7" style='display: inline-block;'>분석모델
+								<span class="sub">분석 원리</span>
+								</a>
+								<div class='dropdown-content' id="drop_1">
+									<a href='model_DecisionTree'>Decision Tree</a> 
+									<a href='model_KNN'>KNN</a> 
+									<a href='model_LGBMClassifier'>LGBM</a> 
+									<a href='model_LogisticRegression'>Logistic Regression</a> 
+									<a href='model_MLP'>MLP</a> 
+									<a href='model_NaiveBayes'>Native Bayes</a> 
+									<a href='model_RandomForest'>Random Forest</a> 
+									<a href='model_SVM'>SVM</a> 
+									<a href='model_Tensor'>Tensor</a> 
+									<a href='model_XGBClassifier'>XGB Classifier</a>
+								</div>
+							</div>
+
+							<a href='predict' class="link7" style='display: inline-block;'>예측
+								<span class="sub">예측해드립니다</span>
+							</a>
+						</div>
+					</div>
+            	</div>
+ 			</div>
+		</nav>
+	</header>
+	 
+	
+    <section id="top_banner">
+        <div class="banner">
+            <div class="inner text-center">
+                <h2>PREDICT YOUR LOAN DEFAULT RISK</h2>
+            </div>
+        </div>
+        <div class="page_info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+                        <h4>Predict</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6" style="text-align:right;">Home<span class="sep"> / </span><span class="current">predict</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+   
+    <section id="contact-page">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h2><span>대출 리스크를 평가하기 위해 정보를 입력해주세요.</span></h2>
+                <p class="subheading">입력하신 정보는 저장되지 않습니다. LRA는 개인 정보 보호 규정을 준수합니다. </p>
+           	</div></div></section>
+
+    
+<div class="container">
+<div class="inforinput" style="color:black; font-size:15px;">
+	<b>연령</b><input type="number" min = 0 id="Age" placeholder = "연령은 100세까지 입력할 수 있습니다."><br>
+	<b>소득</b><input type="number" id="Income" placeholder ="원화로 입력해주세요."><br>
+	<b>직업군</b>	
+       <select id="Profession">
+		<option value="" selected="selected">직업군을 선택해주세요.</option>
+   		<option value="Business and Financial Operations Occupations">경영,금융 직업군</option>
+   		<option value="Architecture and Engineering Occupations">건축, 엔지니어링 직업군</option>
+   		<option value="Management Occupations">관리직</option>  
+   		<option value="Education, Training, and Library Occupations">교육, 훈련, 도서관 직업군</option>  
+   		<option value="Transportation and Material Moving Occupations">교통, 운송 직업군 </option>  
+   		<option value="Military Specific Occupations">군사 직업군</option>  
+   		<option value="Personal Care and Service Occupations">대인 서비스 직업군</option>  
+   		<option value="Legal Occupations">법률 직업군</option>  
+   		<option value="Protective Service Occupations">보호 서비스 직업군</option>  
+   		<option value="Office and Administrative Support Occupations">사무, 행정 보조 직업군</option>  
+   		<option value="Arts, Design, Entertainment, Sports, and Media Occupations">예술, 디자인, 엔터테인먼트, 스포츠, 미디어 직업군 </option>  
+   		<option value="Food Preparation and Serving Related Occupations">음식 서비스 관련 직업군</option>  
+   		<option value="Life, Physical, and Social Science Occupations">자연과학, 사회과학 직업군</option>  
+   		<option value="Computer and Mathematical Occupations">컴퓨터, 수학 직업군 </option>  
+   		<option value="Healthcare Practitioners and Technical Occupations">헬스케어 전문 직업군</option>     		     	
+	  </select><br>
+	<b>사업주로 일한 경력 년수</b><input type="number" min = 0 id="experience"><br>
+	<b>결혼 여부</b> 
+	<select id="married">
+		<option value="" selected="selected">결혼 여부를 선택해주세요.</option>
+   		<option value="0">미혼</option>
+   		<option value="1">기혼</option>
+   	</select><br>      
+	<b>거주하는 주택의 소유 형태</b>
+	<select id="house_ownership">
+		<option value="" selected="selected">주택의 소유 형태를 선택해주세요.</option>
+   		<option value="owned">자가</option>
+   		<option value="rented">임대</option>
+   		<option value="norent_noown">해당사항 없음</option>
+   	</select><br>      
+	
+	<b>차 소유 여부</b>
+	<select id="Car_Ownership">
+		<option value="" selected="selected">차 소유 여부를 선택해주세요.</option>
+   		<option value="1">소유</option>
+   		<option value="0">해당사항 없음</option>  		
+   	</select><br>    
+   
+	<b>현재 직업으로 근무한 년수</b>
+	<input type="number" min = 0 id="CURRENT_JOB_YRS"><br>
+
+	<b>현재 살고 있는 주택에서 거주한 년수</b>
+	<div>
+	<input type="number" min = 0 id="CURRENT_HOUSE_YRS">&nbsp;&nbsp;
+<br>* 버튼은 <span>한 번만</span> 눌러주세요.
+<br>* <span>연령</span>과 <span>년수</span>는 모두 <span>숫자로 입력</span>해주세요.
+<br><br></div>
+</div>
+
+<div class="section-heading text-center"> 
+<button onclick="predict()" class="btnok">대출 리스크 평가</button>&nbsp;&nbsp;&nbsp;&nbsp;
+<button onclick="inforclear()" class="btnok">새로운 정보 입력하기</button>
+</div>
+<br>
+</div> 
+<hr>
+<div class="container">
+<div class="section-heading text-center">
+<h2><span>평가 결과는 다음과 같습니다.</span></h2>
+<p class="subheading">LRA는 올바른 정보를 제공하며 고객 가치 창출을 지향합니다.<br>LRA가 대출을 권유하는 것은 아니며, 대출에 대한 책임은 지지 않습니다.</p>
+<div class="predictRisk" ></div></div>
+                
+                
+                <div class="status alert alert-success" style="display: none"></div>
+                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+                    <div class="col-sm-5 col-sm-offset-1">
+                  
+        </div>
+        </form>
+    </div>
+
+<section id="footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3 col-sm-3 col-xs-12 block">
+                    <div class="footer-block">
+                        <h4>Useful Links</h4>
+                        <hr/>
+                        <ul class="footer-links">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Data</a></li>
+                            <li><a href="#">Predict</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>     
+            
+    <section id="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 btm-footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 copyright">
+                    Developed by <a href="#">Team S2gmo2d</a> designed by <a href="#">Designing_Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="panel">
+        <div id="panel-admin">
+            <div class="panel-admin-box">
+                <div id="tootlbar_colors">
+                    <button class="color" style="background-color:#1abac8;" onclick="mytheme(0)"></button>
+                    <button class="color" style="background-color:#ff8a00;" onclick="mytheme(1)"> </button>
+                    <button class="color" style="background-color:#b4de50;" onclick="mytheme(2)"> </button>
+                    <button class="color" style="background-color:#e54e53;" onclick="mytheme(3)"> </button>
+                    <button class="color" style="background-color:#1abc9c;" onclick="mytheme(4)"> </button>
+                    <button class="color" style="background-color:#159eee;" onclick="mytheme(5)"> </button>
+                </div>
+            </div>
+
+        </div>
+        <a class="open" href="#"><span><i class="fa fa-gear fa-spin"></i></span></a>
+    </div>
+</body>
+
+</html>

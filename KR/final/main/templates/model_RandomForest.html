@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>분석모델 Random Forest</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- 메인 페이지 css설정 -->
+	<link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/mainstyle.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/graph.css?ver=113" rel="stylesheet" type="text/css" />
+	
+	<!-- 
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+	 -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+	<script type="text/javascript" src="/static/js/Graph.js?ver=123"></script>
+	
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/test/main.css?ver=123">
+	<link rel="stylesheet" href="/static/test/skin.css?ver=123">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="/static/test/index.js"></script>
+</head>
+
+<body id="wrapper">
+
+    <section id="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-7 top-header-links">
+                    <ul class="contact_links">
+                        <li><i class="fa fa-phone"></i><a href="#">+82 010 0000 0000</a></li>
+                        <li><i class="fa fa-envelope"></i><a href="#">Admin@LoanRisk.kr</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5 social">
+                    <ul class="social_links">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+
+    <header>
+        <nav class="navbar navbar-inverse" style="height:170px; margin-top:10px;">
+            <div class="container">
+                <div class="row" style="z-index:1;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+                        <a class="navbar-brand" href="/">
+                            <h1>LRA</h1><span>Loan Risk Assessment</span></a>
+                            <!-- Loan Risk Assessment -->
+                    </div>
+					<div id="navbar" class="collapse navbar-collapse navbar-right">
+						<!-- 수정안 -->
+						<div style='display: inline-block; justify-content:center;'>
+							<a href='about' class="link7" style='display: inline-block;'>팀
+								<span class="sub">소개합니다</span>
+							</a> 
+							<a href='data' class="link7" style='display: inline-block;'>데이터
+								<span class="sub">데이터 설명</span>
+							</a>
+							&nbsp;&nbsp;
+							<div class='dropdown'>
+								<a href='model' class="link7" style='display: inline-block;'>분석모델
+								<span class="sub">분석 원리</span>
+								</a>
+								<div class='dropdown-content' id="drop_1">
+									<a href='model_DecisionTree'>Decision Tree</a> 
+									<a href='model_KNN'>KNN</a> 
+									<a href='model_LGBMClassifier'>LGBM</a> 
+									<a href='model_LogisticRegression'>Logistic Regression</a> 
+									<a href='model_MLP'>MLP</a> 
+									<a href='model_NaiveBayes'>Naive Bayes</a> 
+									<a href='model_RandomForest'>Random Forest</a> 
+									<a href='model_SVM'>SVM</a> 
+									<a href='model_Tensor'>Tensor</a> 
+									<a href='model_XGBClassifier'>XGB Classifier</a>
+								</div>
+							</div>
+
+							<a href='predict' class="link7" style='display: inline-block;'>예측
+								<span class="sub">예측해드립니다</span>
+							</a>
+						</div>
+					</div>
+            	</div>
+ 			</div>
+		</nav>
+	</header>
+	 
+	
+    <section id="top_banner">
+        <div class="banner">
+            <div class="inner text-center">
+                <h2>Model description</h2>
+            </div>
+        </div>
+        <div class="page_info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+                        <h4>Model</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6" style="text-align:right;">Model<span class="sep"> / </span><span class="current">Random Forest</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+   
+    <section id="contact-page">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h2><span>Supervised Learning</span></h2>
+                <p style="color:black; font-size:20px;">지도학습(Supervised Learning)은 정답이 있는 데이터를 활용해 데이터를 학습시키는 것<br>(정답 또는 목표가 분명하며 데이터의 특징(feature)을 토대로 값을 예측)</p>
+           	</div>
+            
+           <div class="container">
+    <hr>
+    <p style="text-align:center; font-size: 40px; color:black;">RandomForest</p>
+    <br><br>
+        <abc style="font-size:20px; color:black;">
+        <b>RandomForest 정의</b><br><br>
+        - Decision Tree는 overfitting될 가능성이 높다는 약점을 가지고 있다.<br>
+        - 가지치기를 통해 트리의 최대 높이를 설정해 줄 수 있지만 이로써는 overfitting을 충분히 해결할 수 없다. 
+          <br>&nbsp;&nbsp;그러므로 좀 더 일반화된 트리를 만드는 방법을 생각해야한다.<br>
+        - Random forest는 ensemble(앙상블)의 bagging된 machine learning 모델이다.<br>
+        - <b>여러개의 decision tree를 형성</b>하고 새로운 데이터 포인트를 각 트리에 동시에 통과시키며, 각 트리가 분류한 결과에서 투표를 
+          <br>&nbsp;&nbsp;실시하여 <b>가장 많이 득표한 결과를 최종 분류 결과로 선택</b>한다.<br>
+        - 랜덤 포레스트가 생성한 일부 트리는 overfitting될 수 있지만, 많은 수의 트리를 생성함으로써 <span style="color: red">
+		  <b>overfitting이 예측하는데 있어 <br>&nbsp;&nbsp;큰 영향을 미치지 못 하도록 예방</b></span>한다. <br><br><br>
+        
+       	[onehot_one ver, 산업군 미포함, 직업/도시/주 포함]<br>
+        <div style="width:50%; border:1px solid white; float:left">
+        <img src="/static/images/RandomForest_varimpor.png" border="1" width="500">
+        </div>
+        <div style="width:50%; border:1px solid white; float:right">
+        <img src="/static/images/RandomForest_roc.png" border="1" width="500"><br><br>
+          </div>
+          <b>RandomForest 모델 정확도</b> : 90.06%<br>
+          <b>GridSearchCV의 최적 파라미터</b> : 'n_estimators' : 500<br>
+          <b>GridSearchCV의 최고 정확도</b> : 90.06%<br>
+          <b>Cross Validation 이후 평균 정확도</b> : 90.60%<br>
+          <b>test_accuracy</b> : 90.06%<br>
+          <b>train_accuracy</b> : 93.71%<br>
+          <b>총개수</b> : 75600, <b>오류&nbsp;수</b> : 7870<br>
+          <b>confusion_matrix</b>:<br>
+          [63123  3215]<br>
+          [ 4297  4965]<hr>
+        
+        [simple ver, 산업군 포함, 직업/도시/주 제외]<br>
+        <div style="width:50%; border:1px solid white; float:left">
+        <img src="/static/images/simplerRandomForest_varimpor.png" border="1" width="500">
+        </div>
+        <div style="width:50%; border:1px solid white; float:right">
+        <img src="/static/images/simplerRandomForest_roc.png" border="1" width="500"><br><br>
+          </div>
+          <b>RandomForest 모델 정확도</b>: 89.97%<br>
+          <b>GridSearchCV의 최적 파라미터</b> : 'n_estimators' : 500<br>
+          <b>GridSearchCV의 최고 정확도</b> : 90.01%<br>
+          <b>Cross Validation 이후 평균 정확도</b> : 90.01%<br>
+        <b>test_accuracy</b> : 90.01%<br>
+        <b>train_accuracy</b> : 93.71%<br>
+        <b>총개수</b> : 75600, <b>오류&nbsp;수</b> : 7797<br>
+        <b>confusion_matrix</b> :<br>
+        [63067  3271]<br>
+        [ 4281  4981]
+        
+        
+        </abc>
+  </div>  
+                
+                <div class="status alert alert-success" style="display: none"></div>
+                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+                    <div class="col-sm-5 col-sm-offset-1">
+                  
+        </div>
+        </form>
+    </div>
+</section>       
+     <section id="footer">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-3 col-sm-3 col-xs-12 block">
+                    <div class="footer-block">
+                        <h4>Useful Links</h4>
+                        <hr/>
+                        <ul class="footer-links">
+                            <li><a href="about">About Us</a></li>
+                            <li><a href="data">Data</a></li>
+                            <li><a href="predict">Predict</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>  
+    <section id="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 btm-footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 copyright">
+                    Developed by <a href="#">Team S2gmo2d</a> designed by <a href="#">Designing_Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="panel">
+        <div id="panel-admin">
+            <div class="panel-admin-box">
+                <div id="tootlbar_colors">
+                    <button class="color" style="background-color:#1abac8;" onclick="mytheme(0)"></button>
+                    <button class="color" style="background-color:#ff8a00;" onclick="mytheme(1)"> </button>
+                    <button class="color" style="background-color:#b4de50;" onclick="mytheme(2)"> </button>
+                    <button class="color" style="background-color:#e54e53;" onclick="mytheme(3)"> </button>
+                    <button class="color" style="background-color:#1abc9c;" onclick="mytheme(4)"> </button>
+                    <button class="color" style="background-color:#159eee;" onclick="mytheme(5)"> </button>
+                </div>
+            </div>
+
+        </div>
+        <a class="open" href="#"><span><i class="fa fa-gear fa-spin"></i></span></a>
+    </div>
+</body>
+
+</html>

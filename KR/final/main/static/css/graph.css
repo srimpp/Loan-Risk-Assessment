@@ -1,0 +1,128 @@
+랜덤포레스트 기준 중요 변수 
+income age experience job_year house_year car_ownership married
+
+*{
+	text-align:center;
+	margin:0;
+	padding:0;
+}
+canvas{
+	background-color:#fff;
+}
+
+.wrapper_back{
+	width:1900px;
+	height:1500px;
+	background-color:#fff;
+	text-align:center;
+}
+.wrapper{
+	position:absolute;
+	top:20%;
+	text-align:center;
+	left:5%
+
+}
+.wrapper_graph{
+	display: inline-flex;
+	display:grid;
+    grid-template-rows: repeat(5, 300px);
+    grid-template-columns: 3rem repeat(5,200px) 3rem;
+    grid-row-gap:30px;
+    grid-column-gap:10px;
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: space-around; /* 수평 가운데 정렬 */
+}
+
+
+.wrapper_graph_income{
+	grid-row-start:1;
+	grid-row-end:3;
+	grid-column-start:2;
+	grid-column-end:4;
+}
+
+.wrapper_graph_age{
+	grid-row-start:1;
+	grid-row-end:2;
+	grid-column-start:4;
+	grid-column-end:6;
+}
+
+
+.wrapper_graph_exp{
+	grid-row-start:2;
+	grid-row-end:3;
+	grid-column-start:4;
+	grid-column-end:6;
+	
+	
+}
+
+.wrapper_graph_job{
+	grid-row-start:1;
+	grid-row-end:2;
+	grid-column-start:6;
+	grid-column-end:8;
+	
+}
+.wrapper_graph_house_year{
+	grid-row-start:2;
+	grid-row-end:3;
+	grid-column-start:6;
+	grid-column-end:8;
+}
+
+
+
+.wrapper_graph_car{
+	grid-row-start:3;
+	grid-row-end:4;
+	grid-column-start:2;
+	grid-column-end:3;
+}
+
+.wrapper_graph_house{
+	grid-row-start:3;
+	grid-row-end:4;
+	grid-column-start:3;
+	grid-column-end:4;
+}
+
+.wrapper_graph_mar{
+	grid-row-start:3;
+	grid-row-end:4;
+	grid-column-start:4;
+	grid-column-end:5;
+}
+
+.wrapper_graph_state{
+	grid-row-start:4;
+	grid-row-end:5;
+	grid-column-start:2;
+	grid-column-end:3;
+}
+
+.wrapper_graph_city{
+	grid-row-start:4;
+	grid-row-end:5;
+	grid-column-start:3;
+	grid-column-end:5;
+	
+}
+
+
+.wrapper_graph_ind{
+	grid-row-start:3;
+	grid-row-end:5;
+	grid-column-start:5;
+	grid-column-end:8;
+	
+}
+.wrapper_graph_risk{
+	grid-row-start:4;
+	grid-row-end:5;
+	grid-column-start:4;
+	grid-column-end:5;
+	
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>분석모델 TensorFlow</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- 메인 페이지 css설정 -->
+	<link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/mainstyle.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/graph.css?ver=113" rel="stylesheet" type="text/css" />
+	
+	<!-- 
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+	 -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+	<script type="text/javascript" src="/static/js/Graph.js?ver=123"></script>
+	
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/test/main.css?ver=123">
+	<link rel="stylesheet" href="/static/test/skin.css?ver=123">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="/static/test/index.js"></script>
+</head>
+
+<body id="wrapper">
+
+    <section id="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-7 top-header-links">
+                    <ul class="contact_links">
+                        <li><i class="fa fa-phone"></i><a href="#">+82 010 0000 0000</a></li>
+                        <li><i class="fa fa-envelo127.127pe"></i><a href="#">Admin@LoanRisk.kr</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5 social">
+                    <ul class="social_links">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+
+    <header>
+        <nav class="navbar navbar-inverse" style="height:170px; margin-top:10px;">
+            <div class="container">
+                <div class="row" style="z-index:1;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+                        <a class="navbar-brand" href="/">
+                            <h1>LRA</h1><span>Loan Risk Assessment</span></a>
+                            <!-- Loan Risk Assessment -->
+                    </div>
+					<div id="navbar" class="collapse navbar-collapse navbar-right">
+						<!-- 수정안 -->
+						<div style='display: inline-block; justify-content:center;'>
+							<a href='about' class="link7" style='display: inline-block;'>팀
+								<span class="sub">소개합니다</span>
+							</a> 
+							<a href='data' class="link7" style='display: inline-block;'>데이터
+								<span class="sub">데이터 설명</span>
+							</a>
+							&nbsp;&nbsp;
+							<div class='dropdown'>
+								<a href='model' class="link7" style='display: inline-block;'>분석모델
+								<span class="sub">분석 원리</span>
+								</a>
+								<div class='dropdown-content' id="drop_1">
+									<a href='model_DecisionTree'>Decision Tree</a> 
+									<a href='model_KNN'>KNN</a> 
+									<a href='model_LGBMClassifier'>LGBM</a> 
+									<a href='model_LogisticRegression'>Logistic Regression</a> 
+									<a href='model_MLP'>MLP</a> 
+									<a href='model_NaiveBayes'>Naive Bayes</a> 
+									<a href='model_RandomForest'>Random Forest</a> 
+									<a href='model_SVM'>SVM</a> 
+									<a href='model_Tensor'>Tensor</a> 
+									<a href='model_XGBClassifier'>XGB Classifier</a>
+								</div>
+							</div>
+
+							<a href='predict' class="link7" style='display: inline-block;'>예측
+								<span class="sub">예측해드립니다</span>
+							</a>
+						</div>
+					</div>
+            	</div>
+ 			</div>
+		</nav>
+	</header>
+	
+	
+    <section id="top_banner">
+        <div class="banner">
+            <div class="inner text-center">
+                <h2>Model description</h2>
+            </div>
+        </div>
+        <div class="page_info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+                        <h4>Model</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6" style="text-align:right;">Model<span class="sep"> / </span><span class="current">TensorFlow</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+   
+    <section id="contact-page">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h2><span>머신러닝을 위한 End-to-End Open Source Flatfom</span></h2>
+                <p style="color:black; font-size:20px;">프로그래밍에서 전체 계산을 그래프 구조로 표현</p>
+           	</div>
+            
+     
+  <div class="container">
+    <hr>
+    <p style="text-align:center; font-size: 40px; color:black;">TensorFlow</p>
+    <br><br>
+        <abc style="font-size:20px; color:black;">
+        <b>TensorFlow 정의</b><br><br>
+	        - 다양한 작업에 대해 데이터 흐름 프로그래밍을 위한 오픈소스 소프트웨어 라이브러리로써 <b>인공 신경망</b>같은 기계 학습 <br>&nbsp;&nbsp;응용 프로그램에도 사용된다.<br>
+	        - 텐서(Tensor) <b>다차원의 배열을 담고 있는 노드(Node)</b>와 이를 <b>다양한 연산으로 연결하고 있는 엣지(Edge)</b>로 구성되어 <br>&nbsp;&nbsp;있으며 이러한 텐서들이 서로 연산을 통해 값을 주고 받는 흐름(Flow)으로 작동한다.<br>
+	        - 노드 계층을 통해 여러 가지 함수를 적용할 수 있으며, 그래픽 카드를 동원하여 많은 데이터를 빠르게 연산할 수 <br>&nbsp;&nbsp;있도록 해준다.<br>
+	        - 텐서플로우(Tensorflow)에서 계산은 데이터 흐름 그래프(DataFlow Graph)로 이루어 지는데 텐서 형태의 데이터들이 딥러닝 <br>&nbsp;&nbsp;모델을 구성하는 연산들의 그래프를 따라 흐르면서 연산한다.<br>
+	        - 텐서 플로우는 데이터 분석에 사용되기도 하지만, <b>이미지와 텍스트 분류, 사운드 인식, 형태소 분석</b> 등이 가능하다.<br>
+	        - 여기서는 데이터 분석 분야의 <span style="color: red"><b>logistics function의 sigmoid</b></span>를 구현하였다.<br><br><br>
+	      
+		[onehot_one ver, 산업군 미포함, 직업/도시/주 포함] <br>
+		<div style="border: 1px solid white; float: left; width: 50%;">
+    	<img src="/static/images/Tensor.png" border="1" width="100%"></div><br><br>
+    	<div style="border: 1px solid white; float: right; width: 50%;">
+    	<b>Tensor 모델 정확도</b> : 87.60%<br>
+          <b>최적 파라미터</b> : 해당없음<br>          
+          <b>Cross Validation 이후 평균 정확도</b> : 87.60%<br>
+          <b>test_accuracy</b> : 87.60%<br>
+          <b>train_accuracy</b> : 87.73%<br>
+          <b>총개수</b> : 75600, <b>오류&nbsp;수</b> : 9368<br>
+          <b>confusion_matrix</b>:<br>
+          [66232     0]<br>
+          [ 9368     0]</div>
+ 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+ 		<hr>
+ 		[simple ver, 산업군 포함, 직업/도시/주 제외]<br>
+  		<div style="border: 1px solid white; float: left; width: 50%;">
+  		<img src="/static/images/simpleTensor.png" border="1" width="100%"></div><br><br>
+    	<div style="border: 1px solid white; float: right; width: 50%;">
+    	<b>Tensor 모델 정확도</b> : 87.60%<br>
+          <b>최적 파라미터</b> : 해당없음<br>
+          <b>Cross Validation 이후 평균 정확도</b>  : 87.60%<br>
+        <b>test_accuracy</b> : 87.60%<br>
+        <b>train_accuracy</b> : 87.73%<br>
+        <b>총개수</b> : 75600, <b>오류&nbsp;수</b> : 9368<br>
+        <b>confusion_matrix</b> :<br>
+        [66232     0]<br>
+        [ 9368     0]</div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+ 		<hr>
+  	 <img src="/static/images/Char_Importance.png" border="1" width="100%" style="display: block; margin: 0 auto">
+  	 </abc>
+</div>   
+  
+ 
+                
+                
+                <div class="status alert alert-success" style="display: none"></div>
+                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+                    <div class="col-sm-5 col-sm-offset-1">
+                  
+        </div>
+        </form>
+    </div>
+</section>       
+       
+       <section id="footer">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-3 col-sm-3 col-xs-12 block">
+                    <div class="footer-block">
+                        <h4>Useful Links</h4>
+                        <hr/>
+                        <ul class="footer-links">
+                            <li><a href="about">About Us</a></li>
+                            <li><a href="data">Data</a></li>
+                            <li><a href="predict">Predict</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+       
+       
+            
+    <section id="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 btm-footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 copyright">
+                    Developed by <a href="#">Team S2gmo2d</a> designed by <a href="#">Designing_Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="panel">
+        <div id="panel-admin">
+            <div class="panel-admin-box">
+                <div id="tootlbar_colors">
+                    <button class="color" style="background-color:#1abac8;" onclick="mytheme(0)"></button>
+                    <button class="color" style="background-color:#ff8a00;" onclick="mytheme(1)"> </button>
+                    <button class="color" style="background-color:#b4de50;" onclick="mytheme(2)"> </button>
+                    <button class="color" style="background-color:#e54e53;" onclick="mytheme(3)"> </button>
+                    <button class="color" style="background-color:#1abc9c;" onclick="mytheme(4)"> </button>
+                    <button class="color" style="background-color:#159eee;" onclick="mytheme(5)"> </button>
+                </div>
+            </div>
+
+        </div>
+        <a class="open" href="#"><span><i class="fa fa-gear fa-spin"></i></span></a>
+    </div>
+</body>
+
+</html>

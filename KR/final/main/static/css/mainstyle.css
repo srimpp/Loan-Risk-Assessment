@@ -1,0 +1,178 @@
+
+
+/* The dropdown container */
+.dropdown {
+  display:inline-block;
+  overflow: visible;
+}
+
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 140px;
+  box-shadow: 6px 4px 3px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top:111px;
+  line-height:42px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-size:16px;
+  position:relative;
+  height:30px;
+  top:-10px;
+}
+
+
+
+/* Dropdown button */
+#mainlogo:hover{
+	background-color: #203864;
+}
+
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #828282;
+}
+
+
+
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.navbar-collapse {
+	text-align:center;
+	
+}
+
+
+.link4{position: relative;}
+.link4::after{position:absolute; bottom: 0; left: 0; display: block; content: ''; width: 100%; border-bottom: 3px solid #dcdcdc; height: 1px; transform: translateY(-15px); opacity: 0; transition: all 0.5s;}
+.link4:hover::after{opacity: 1; transform: translateY(-5px);}
+
+.link6{position: relative; padding: 0; width: 200px; height: 30px; line-height: 30px; border: 3px solid rgba(255,255,255,0.4); box-sizing: border-box;}
+.link6::after{position: absolute;display: block; content: ''; width: 119px; height: 40px; border: 3px solid #dcdcdc; top: -8px; right: -10px; opacity: 0; transition: all 0.5s; padding: 0; box-sizing: border-box;}
+.link6:hover::after{top: -3px; right: -3px; opacity: 1;}
+
+.link5{position: relrgb(192, 192, 192)ve; padding: 0; width: 200px; height: 30px; line-height: 30px; border: 3px solid rgba(255,255,255,0.4); box-sizing: border-box;}
+.link5::after{position: absolute;display: block; content: ''; width: 100px; height: 40px; border: 3px solid #ffff; top: -8px; right: -10px; opacity: 0; transition: all 0.5s; padding: 0; box-sizing: border-box;}
+.link5:hover::after{top: -3px; right: -3px; opacity: 1;}
+
+
+
+.link7{position: relative; font-size:20px; color:rgb(119, 119, 119);}
+.link7 .sub{width:auto; display: block; font-size: 14px; line-height: 16px; opacity: 0; transition: all 0.5s; transform: translateY(-8px);}
+.link7::before{display: block; position: absolute; width: 100%; content: ''; height: 5px; box-sizing: border-box; top: 0; left: 0; transition: all 0.5s;}
+.link7::after{display: block; position: absolute; width: 100%; content: ''; height: 1px; border-bottom: 2px solid #dcdcdc; bottom:0; left:0; opacity: 0; transition: all 0.5s;transform: translateY(-8px);}
+.link7:hover {color:white;}
+.link7:hover .sub{opacity: 1;transform: translateY(0); color:white;}
+.link7:hover::before{border-top: 3px solid #dcdcdc;}
+.link7:hover::after{opacity: 1;transform: translateY(0);}
+
+
+.navbar-beader{
+	float:rigtht;
+}
+
+
+
+.link3::before{content: '['; opacity: 0; margin-left: 10px; transition: all 0.5s;}
+.link3::after{content: ']'; opacity: 0; margin-right: 10px; transition: all 0.5s;}
+.link3:hover::before{opacity: 1; margin-left: 0; margin-right: 10px;}
+.link3:hover::after{opacity: 1; margin-left: 0; margin-left: 10px;}
+
+.sm{
+  background:#46BD7B;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:40px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  margin-top:10px;
+}
+.sm:hover{
+  background:#fff;
+  color:#46BD7B;
+}
+.sm:before,.sm:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.sm:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.sm:hover:before,.sm:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+
+/*
+.form__label {
+  font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+  font-size: 1.2rem;
+  margin-left: 2rem;
+  margin-top: 0.7rem;
+  display: block;
+  transition: all 0.3s;
+  transform: translateY(0rem);
+  color: white;
+}
+
+.form__input {
+  font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  width: 90%;
+  display: inline;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+}
+
+.form__input:placeholder-shown + .form__label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(-4rem);
+  transform: translateY(-4rem);
+}
+*/
+
+
+/*-------------------------MAIN CSS---------------------------*/

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>데이터 자료</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- 메인 페이지 css설정 -->
+	<link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/mainstyle.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/graph.css?ver=113" rel="stylesheet" type="text/css" />
+	
+	<!-- 
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+	 -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+	<script type="text/javascript" src="/static/js/Graph.js?ver=123"></script>
+	
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/test/main.css?ver=123">
+	<link rel="stylesheet" href="/static/test/skin.css?ver=123">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="/static/test/index.js"></script>
+</head>
+
+<body id="wrapper" onload="a();">
+
+    <section id="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-7 top-header-links">
+                    <ul class="contact_links">
+                        <li><i class="fa fa-phone"></i><a href="#">+82 010 0000 0000</a></li>
+                        <li><i class="fa fa-envelope"></i><a href="#">Admin@LoanRisk.kr</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5 social">
+                    <ul class="social_links">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+
+    <header>
+        <nav class="navbar navbar-inverse" style="height:170px; margin-top:10px;">
+            <div class="container">
+                <div class="row" style="z-index:1;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+                        <a class="navbar-brand" href="/">
+                            <h1>LRA</h1><span>Loan Risk Assessment</span></a>
+                            <!-- Loan Risk Assessment -->
+                    </div>
+					<div id="navbar" class="collapse navbar-collapse navbar-right">
+						<!-- 수정안 -->
+						<div style='display: inline-block; justify-content:center;'>
+							<a href='about' class="link7" style='display: inline-block;'>팀
+								<span class="sub">소개합니다</span>
+							</a> 
+							<a href='data' class="link7" style='display: inline-block;'>데이터
+								<span class="sub">데이터 설명</span>
+							</a>
+							&nbsp;&nbsp;
+							<div class='dropdown'>
+								<a href='model' class="link7" style='display: inline-block;'>분석모델
+								<span class="sub">분석 원리</span>
+								</a>
+								<div class='dropdown-content' id="drop_1">
+									<a href='model_DecisionTree'>Decision Tree</a> 
+									<a href='model_KNN'>KNN</a> 
+									<a href='model_LGBMClassifier'>LGBM</a> 
+									<a href='model_LogisticRegression'>Logistic Regression</a> 
+									<a href='model_MLP'>MLP</a> 
+									<a href='model_NaiveBayes'>Naive Bayes</a> 
+									<a href='model_RandomForest'>Random Forest</a> 
+									<a href='model_SVM'>SVM</a> 
+									<a href='model_Tensor'>Tensor</a> 
+									<a href='model_XGBClassifier'>XGB Classifier</a>
+								</div>
+							</div>
+
+							<a href='predict' class="link7" style='display: inline-block;'>예측
+								<span class="sub">예측해드립니다</span>
+							</a>
+						</div>
+					</div>
+            	</div>
+ 			</div>
+		</nav>
+	</header>
+	 
+	
+    <section id="top_banner">
+        <div class="banner">
+            <div class="inner text-center">
+                <h2>Data graph</h2>
+            </div>
+        </div>
+        <div class="page_info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+                        <h4>Data</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6" style="text-align:right;">Home<span class="sep"> / </span><span class="current">Data</span></div>
+                </div>
+            </div>
+        </div>
+
+        
+    </section>
+   
+   
+   
+   <form name="graph_data">
+<div>
+	<!-- Income -->
+    <input type='hidden' class='income' id='inc_1' value='{{Income_top}}'>
+    <input type='hidden' class='income' id='inc_2' value='{{Income_mid}}'>
+    <input type='hidden' class='income' id='inc_3' value='{{Income_bot}}'>
+    
+    <!-- Age -->
+    <input type='hidden' class='age' id='age_1' value='{{20대}}'>
+    <input type='hidden' class='age' id='age_2' value='{{30대}}'>
+    <input type='hidden' class='age' id='age_3' value='{{40대}}'>
+    <input type='hidden' class='age' id='age_4' value='{{50대}}'>
+    <input type='hidden' class='age' id='age_5' value='{{60대}}'>
+    <input type='hidden' class='age' id='age_6' value='{{70대}}'>
+
+	<!-- Experience -->
+    <input type='hidden' class='experience' id='exp_1' value="{{Exp_1}}">
+    <input type='hidden' class='experience' id='exp_2' value='{{Exp_2}}'>
+    <input type='hidden' class='experience' id='exp_3' value='{{Exp_3}}'>
+    <input type='hidden' class='experience' id='exp_4' value='{{Exp_4}}'>
+
+	<!-- Married/Single  -->
+    <input type='hidden' class='marry' id='mar_1' value='{{Married}}'>
+    <input type='hidden' class='marry' id='mar_2' value='{{Single}}'>
+	
+	
+	<!-- House_Ownership -->	
+    <input type='hidden' class='house' id='house_1' value='{{rented}}'>
+    <input type='hidden' class='house' id='house_2' value='{{norent_noown}}'>
+    <input type='hidden' class='house' id='house_3' value='{{owned}}'>
+
+
+	<!-- 자동차 소유 여부 -->
+	<input type=hidden id="car_yes" value="{{car_yes}}">
+	<input type=hidden id="car_no" value="{{car_no}}">
+	
+	<input type=hidden id="state1" value="{{Uttar_Pradesh}}">
+	<input type=hidden id="state2" value="{{Maharashtra}}">
+	<input type=hidden id="state3" value="{{Andhra_Pradesh}}">
+	<input type=hidden id="state4" value="{{West_Bengal}}">
+	<input type=hidden id="state5" value="{{Bihar}}">
+	
+	<input type=hidden id="city1" value="{{Vijayanagaram}}">
+	<input type=hidden id="city2" value="{{Bhopal}}">
+	<input type=hidden id="city3" value="{{Bulandshahr}}">
+	<input type=hidden id="city4" value="{{Saharsa_29}}">
+	<input type=hidden id="city5" value="{{Vijayawada}}">
+	<input type=hidden id="city6" value="{{Srinagar}}">
+	<input type=hidden id="city7" value="{{Indore}}">
+	<input type=hidden id="city8" value="{{Hajipur_31}}">
+	<input type=hidden id="city9" value="{{New_Delhi}}">
+	<input type=hidden id="city10" value="{{Satara}}">
+	
+	<input type=hidden id="Cur_Job_1" value="{{Cur_Job_1}}">
+	<input type=hidden id="Cur_Job_2" value="{{Cur_Job_2}}">
+	<input type=hidden id="Cur_Job_3" value="{{Cur_Job_3}}">
+	
+	<input type=hidden id="Cur_House_1" value="{{Cur_House_1}}">
+	<input type=hidden id="Cur_House_2" value="{{Cur_House_2}}">
+	<input type=hidden id="Cur_House_3" value="{{Cur_House_3}}">
+	<input type=hidden id="Cur_House_4" value="{{Cur_House_4}}">
+	<input type=hidden id="Cur_House_5" value="{{Cur_House_5}}">
+
+
+	<!-- 산업군별 직업 통계값 -->
+	<input type=hidden id="prof_1" value="{{ Architecture_Engineering }}">
+	<input type=hidden id="prof_2" value="{{ Arts_Design_Entertainment_Sports_Media }}">
+	<input type=hidden id="prof_3" value="{{ Business_Financial }}">
+	<input type=hidden id="prof_4" value="{{ Computer_Mathematical }}">
+	<input type=hidden id="prof_5" value="{{ Education_Training_Library }}">
+	<input type=hidden id="prof_6" value="{{ Food_Preparation_Serving_Related }}">
+	<input type=hidden id="prof_7" value="{{ Healthcare_Practitioners_Technical }}">
+	<input type=hidden id="prof_8" value="{{ Legal }}">
+	<input type=hidden id="prof_9" value="{{ Life_Physical_Social_Science }}">
+	<input type=hidden id="prof_10" value="{{ Management }}">
+	<input type=hidden id="prof_11" value="{{ Military_Specific }}">
+	<input type=hidden id="prof_12" value="{{ Office_Administrative_Support }}">
+	<input type=hidden id="prof_13" value="{{ Personal_Care_Service }}">
+	<input type=hidden id="prof_14" value="{{ Protective_Service }}">
+	<input type=hidden id="prof_15" value="{{ Transportation_Material_Moving }}">
+
+	<!-- 대출 위험도 -->
+	<input type=hidden id="Risk_Flag_safe" value="{{Risk_Flag_safe}}">
+	<input type=hidden id="Risk_Flag_warning" value="{{Risk_Flag_warning}}">
+
+</div>
+</form>
+   
+   
+   
+    <section id="contact-page">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h2>Expressed in a <span>Graph</span></h2>
+                <p style="color:black; font-size:20px;">소득수준, 연령, 경력, 근속기간, 거주기간, 차량, 주택, 결혼, 주(State), 도시, 산업별 직종으로 구분지어서 그래프로 출력합니다.</p>
+           		<p style="color:black; font-size:20px;">경력 : 해당 직종에 일정기간 일해온 경험의 기간을 의미합니다.</p>
+           		<p style="color:black; font-size:20px;">근속기간 : 근로계약 체결 시 해지될 때까지의 기간을 의미합니다.</p>
+           	</div>
+            
+<div class="row contact-wrap">
+ 
+<div class='wrapper_back'>
+<div class='wrapper' style="position:relative; top:10%; left:-450px;">
+<div class='wrapper_graph'>
+	<!-- Age_bar -->
+	<div class='wrapper_graph_age'>
+		<div style = width:100%>
+		<canvas id="chart_age" width="90" height="45"></canvas>
+		</div>
+	</div>
+
+	<!-- Income_bar -->
+	<div class='wrapper_graph_income'>
+		<div style = width:100%>
+		<canvas id="chart_income" width="300" height="300"></canvas>
+		</div>
+	</div>
+	
+	<!-- Marry Pie -->
+	<div class='wrapper_graph_mar'>
+		<div style = width:100%>
+		<canvas id="chart_marry" width="400" height="400"></canvas>
+		</div>
+	</div>
+	
+	
+	<!-- House_Ownership Pie -->
+	<div class='wrapper_graph_house'>
+		<div style = width:100%>
+		<canvas id="chart_house" width="600" height="600"></canvas>
+		</div>
+	</div>
+	
+	<!-- 차량소유여부_pie -->
+	<div class='wrapper_graph_car'>
+		<div style = width:100%>
+		<canvas id="chart_car" width="400" height="400"></canvas>
+		</div>
+	</div>	
+	
+	
+	<!-- 거주년수_bar -->
+	<div class='wrapper_graph_house_year'>
+		<div style = width:100%>
+		<canvas id="chart_cur_house" width="50" height="40"></canvas>
+		</div>
+	</div>
+	
+	<!-- Experience _ Bar -->
+	<div class='wrapper_graph_exp'>
+		<div style = width:100%>
+		<canvas id="chart_exp" width="90" height="45"></canvas>
+		</div>
+	</div>
+	
+	
+	
+	<!-- 주_bar -->
+	<div class='wrapper_graph_state'>
+		<div style = width:100%>
+		<canvas id="chart_state" width="80" height="90"></canvas>
+		</div>
+	</div>	
+	
+	<!-- 도시_bar -->
+	<div class='wrapper_graph_city'>
+		<div style = width:100%>
+		<canvas id="chart_city" width="90" height="50"></canvas>
+		</div>
+	</div>
+	
+	
+	<!-- 근속년수_bar -->
+	<div class='wrapper_graph_job'>
+		<div style = width:100%>
+		<canvas id="chart_cur_job" width="50" height="40"></canvas>
+		</div>
+	</div>
+	
+	
+	
+	<!-- 위험도_bar
+	<div class='wrapper_graph_risk'>
+		<div style = width:100%>
+		<canvas id="chart_risk" width="100" height="100"></canvas>
+		</div>
+	</div>	
+	 -->
+	
+	
+	<!-- 산업군별_pie -->
+	<div class='wrapper_graph_ind'>
+		<div style = width:100%>
+		<canvas id="chart_prof" width="90" height="10"></canvas>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+  
+ 
+           
+</div>
+                
+                
+                <div class="status alert alert-success" style="display: none"></div>
+                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+                    <div class="col-sm-5 col-sm-offset-1">
+                  
+        </div>
+        </form>
+    </div>
+</section>       
+            
+ 
+                
+                
+                
+                
+                
+                
+
+    <section id="footer">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-3 col-sm-3 col-xs-12 block">
+                    <div class="footer-block">
+                        <h4>Useful Links</h4>
+                        <hr/>
+                        <ul class="footer-links">
+                            <li><a href="about">About Us</a></li>
+                            <li><a href="data">Data</a></li>
+                            <li><a href="predict">Predict</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 btm-footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 copyright">
+                   	Developed by <a href="#">Team S2gmo2d</a> designed by <a href="#">Designing_Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="panel">
+        <div id="panel-admin">
+            <div class="panel-admin-box">
+                <div id="tootlbar_colors">
+                    <button class="color" style="background-color:#1abac8;" onclick="mytheme(0)"></button>
+                    <button class="color" style="background-color:#ff8a00;" onclick="mytheme(1)"> </button>
+                    <button class="color" style="background-color:#b4de50;" onclick="mytheme(2)"> </button>
+                    <button class="color" style="background-color:#e54e53;" onclick="mytheme(3)"> </button>
+                    <button class="color" style="background-color:#1abc9c;" onclick="mytheme(4)"> </button>
+                    <button class="color" style="background-color:#159eee;" onclick="mytheme(5)"> </button>
+                </div>
+            </div>
+
+        </div>
+        <a class="open" href="#"><span><i class="fa fa-gear fa-spin"></i></span></a>
+    </div>
+</body>
+
+</html>
