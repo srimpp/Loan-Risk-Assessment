@@ -13,10 +13,15 @@ We, Team S2gmo2d, created 10 different machine learning classification algorithm
 List of collaborators / 프로젝트 참여자 목록
 
 Sungwoo Kim / 김성우 : justinswk95@gmail.com
+
 Gwanghyun Cho / 조광현 : jgch0828@gmail.com
+
 Eunbyul Kwon / 권은별 : silsbailey@gmail.com
+
 Kyunghoon Cho / 조경훈 : cckkhh88@naver.com
+
 Seungjo Lee / 이승조 : seungjolee@naver.com
+
 Kyungmoon Park / 박경문 : x0xmoon@gmail.com
 
 
